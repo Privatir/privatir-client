@@ -6,9 +6,9 @@ import { loginUserSuccess } from './actions/sessions';
 
 const store = configureStore();
 
-let token = localStorage.getItem('token');
-if (token !== null) {
-  store.dispatch(loginUserSuccess(token));
+let csrf = localStorage.getItem('csrf');
+if (csrf !== null) {
+  store.dispatch(loginUserSuccess(csrf));
 }
 
 ReactDOM.render(

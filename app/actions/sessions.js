@@ -1,26 +1,26 @@
 import fetch from 'isomorphic-fetch';
-import { routeActions as route } from 'react-router-redux';
-import Constants from '../constants';
-import { parseJson, handleError, buildHeaders } from '../utils';
+import { history } from '../store';
+import constants from '../constants';
+import { handleError, parseJson, buildHeaders } from '../utils';
 
 export function closeAlert() {
   return {
-    type: Constants.CLOSE_ALERT
+    type: constants.CLOSE_ALERT
   }
 }
 export function loginUserSuccess(token) {
-  localStorage.setItem('token', token);
+  localStorage.setItem('csrf', token);
   return {
-    type: Constants.LOGIN_USER_SUCCESS,
+    type: constants.LOGIN_USER_SUCCESS,
     payload: {
-      token: token
+      csrf: token
     }
   }
 }
 export function loginUserFailure(error) {
-  localStorage.removeItem('token');
+  localStorage.removeItem('csrf');
   return {
-    type: Constants.LOGIN_USER_FAILURE,
+    type: constants.LOGIN_USER_FAILURE,
     payload: {
       status: error.response.status,
       statusText: error.response.statusText
@@ -29,55 +29,55 @@ export function loginUserFailure(error) {
 }
 export function loginUserRequest() {
   return {
-    type: Constants.LOGIN_USER_REQUEST
+    type: constants.LOGIN_USER_REQUEST
   }
 }
 export function logout() {
-  localStorage.removeItem('token');
+  localStorage.removeItem('csrf');
   return {
-    type: Constants.LOGOUT_USER
+    type: constants.LOGOUT_USER
   }
 }
 export function logoutAndRedirect() {
   return dispatch => {
-    dispatch(logout());
-    dispatch(route.push('/login'));
+    dispatch(
+      logout()
+    );
+    dispatch(
+      history.push('/login')
+    );
   }
 }
 export function logoutUser() {
-  return async dispatch => {
-    try {
-      let response = await fetch('/api/sessions', buildHeaders('delete', true));
-      response = await parseJson(handleError(response));
-      dispatch(logoutAndRedirect());
-    } catch (error) {
-      console.log(error);
-    }
+  return dispatch => {
+    return fetch('/api/signin', buildHeaders('delete', true))
+      .then(handleError)
+      .then(parseJson)
+      .then(response => {
+        dispatch(logoutAndRedirect())
+      }).catch(error => {
+        console.log(error);
+      });
   }
 }
 export function loginUser(data) {
-  return async dispatch => {
+  return dispatch => {
     dispatch(loginUserRequest());
-    try {
-      let response = await fetch('/api/sessions', buildHeaders('post', true, data));
-      response = await parseJson(handleError(response));
-      try {
-        dispatch(loginUserSuccess(response.data.token));
-      } catch (error) {
-        dispatch(
-          loginUserFailure({
-            response: { status: 401, statusText: 'Invalid Token' }
-          })
-        );
-      }
-    } catch (error) {
-      error.json().then(res => {
-        dispatch(
-          loginUserFailure({
-            response: { status: error.status, statusText: res.data.error }
-          })
-        );
+    return fetch('/api/signin', buildHeaders('post', true, data))
+      .then(handleError)
+      .then(parseJson)
+      .then(response => {
+        try {
+          dispatch(loginUserSuccess(response.csrf));
+          history.push('/');
+        } catch (e) {
+          console.log(e);
+          dispatch(loginUserFailure({response: { status: 401, statusText: 'Invalid Token' }}));
+        }
+      }).catch(error => {
+        error.json().then(res => {
+          dispatch(loginUserFailure({response: { status: error.status, statusText: res.data.error }}));
+        });
       });
-    }
   }
 }

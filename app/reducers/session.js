@@ -1,8 +1,7 @@
 import Constants from '../constants';
-import jwtDecode from 'jwt-decode';
 
 const initialState = {
-  token: null,
+  csrf: null,
   username: null,
   isAuthenticated: false,
   isAuthenticating: false,
@@ -24,8 +23,8 @@ export default function session(state = initialState, action) {
       ...state,
       isAuthenticated: true,
       isAuthenticating: false,
-      token: payload.token,
-      username: jwtDecode(payload.token).sub,
+      csrf: payload.csrf,
+      username: "user1",
       statusText: 'You have been successfully logged in.'
     }
   case Constants.LOGIN_USER_FAILURE:
@@ -33,7 +32,7 @@ export default function session(state = initialState, action) {
       ...state,
       isAuthenticated: false,
       isAuthenticating: false,
-      token: null,
+      csrf: null,
       username: null,
       statusText: `Authentication Error: ${payload.status} ${payload.statusText}`
     }
@@ -41,7 +40,7 @@ export default function session(state = initialState, action) {
     return {
       ...state,
       isAuthenticated: false,
-      token: null,
+      csrf: null,
       username: null,
       statusText: 'You have been successfully logged out.'
     }

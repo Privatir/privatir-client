@@ -1,5 +1,5 @@
 import './app.scss'
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import Header from '../components/header/header';
 import Footer from '../components/footer';

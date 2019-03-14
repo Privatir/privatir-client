@@ -1,15 +1,24 @@
 import React, { Component }  from 'react'
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom'
 import { setTitle } from '../../utils';
+import { logoutUser } from '../../actions/sessions';
 
 class Home extends Component {
   constructor(props) {
     super(props);
+    this.logout = this.logout.bind(this);
   }
 
   componentDidMount() {
     setTitle('Home');
+  }
+
+  logout(e) {
+    e.preventDefault();
+    const { dispatch } = this.props;
+    dispatch(logoutUser());
   }
 
   render() {
@@ -23,9 +32,7 @@ class Home extends Component {
               <p>Home Page</p>
             </div>
             <div className="clearfix">
-              <Link to="/login">
-                <button className="btn btn-primary btn-md">Login</button>
-              </Link>
+              <button onClick={this.logout} className="btn btn-primary btn-md">Logout</button>
             </div>
           </div>
         </div>
@@ -34,4 +41,10 @@ class Home extends Component {
   }
 }
 
-export default connect()(Home)
+export default connect(
+  (dispatch) => {
+    return ({
+      actions: bindActionCreators({ logoutUser }, dispatch)
+    });
+  }
+)(Home);

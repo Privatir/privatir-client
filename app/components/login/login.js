@@ -8,12 +8,12 @@ import { loginUser, closeAlert } from '../../actions/sessions';
 class Login extends Component {
   constructor(props, context) {
     super(props, context);
-    this.showAlert = this.showAlert.bind(this);
     this.state = {
       email: '',
       password: '',
       submitted: false
     }
+    this.showAlert = this.showAlert.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -23,17 +23,17 @@ class Login extends Component {
   }
 
   handleChange(e) {
-    const { type, value } = e.target;
-    this.setState({ [type]: value });
+    const { name, value } = e.target;
+    this.setState({ [name]: value });
   }
 
   handleSubmit(e) {
     e.preventDefault();
     this.setState({ submitted: true });
-    const { email, password } = this.state;
+    const { username, password } = this.state;
     const { actions } = this.props;
-    if (email && password) {
-      actions.loginUser({ email: email, password: password });
+    if (username && password) {
+      actions.loginUser({ email: username, password: password });
     }
   }
 
@@ -49,7 +49,7 @@ class Login extends Component {
   render() {
     const { statusText, isAuthenticating } = this.props;
     let alert = (statusText ? this.showAlert(statusText) : '');
-    const { email, password, submitted } = this.state;
+    const { username, password, submitted } = this.state;
     return (
       <section className="container">
         <div className="row">
@@ -63,11 +63,11 @@ class Login extends Component {
             <form className="signin" onSubmit={this.handleSubmit}>
               <div className="form-group">
                 <label>Email address</label>
-                <input value={email} onChange={this.handleChange} type="email" className="form-control" placeholder="Email" required/>
+                <input name="username" value={username} onChange={this.handleChange} placeholder="Email" required={true}/>
               </div>
               <div className="form-group">
                 <label>Password</label>
-                <input value={password} onChange={this.handleChange} type="password" className="form-control" placeholder="Password" required/>
+                <input name="password" value={password} onChange={this.handleChange} placeholder="Password" required={true}/>
               </div>
               <div className="form-group">
                 <button disabled={isAuthenticating} className="btn btn-primary">Sign in</button>

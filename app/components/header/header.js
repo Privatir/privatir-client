@@ -1,19 +1,20 @@
 import './header.scss';
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { logoutUser } from '../../actions/sessions';
+// import { logoutUser } from '../../actions/sessions';
 import { Link } from 'react-router-dom';
 
 class Header extends Component {
   constructor(props, context) {
     super(props, context);
+    // this.logout = this.logout.bind(this);
   }
 
-  logout(e) {
-    e.preventDefault();
-    const { dispatch } = this.props;
-    dispatch(logoutUser());
-  }
+  // logout(e) {
+  //   e.preventDefault();
+  //   const { dispatch } = this.props;
+  //   dispatch(logoutUser());
+  // }
 
   rightNavMenu() {
     const { isAuthenticated, username } = this.props.session;

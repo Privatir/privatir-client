@@ -10,11 +10,13 @@
   },
   "dependencies": {
     "@babel/polyfill": "^7.2.5",
+    "@material-ui/core": "^3.9.2",
     "connected-react-router": "^6.3.2",
     "es6-promise": "^4.2.6",
     "history": "^4.7.2",
     "isomorphic-fetch": "^2.2.1",
     "jwt-decode": "^2.2.0",
+    "prop-types": "^15.7.2",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
     "react-redux": "^6.0.1",
