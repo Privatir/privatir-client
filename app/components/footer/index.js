@@ -12,7 +12,7 @@ export default class Footer extends Component {
     return (
       <footer className="footer">
         <div className="container">
-          <p>&copy; {year} Cyphre, LLC</p>
+          <p>&copy; {year} Privatir</p>
         </div>
       </footer>
     );

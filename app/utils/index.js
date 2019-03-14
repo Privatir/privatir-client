@@ -26,7 +26,7 @@ export function parseJson(response) {
 }
 
 export function setTitle(title) {
-  document.title = `Cyphre | ${title}`
+  document.title = `Privatir | ${title}`
 }
 
 function includeMethod(method) {

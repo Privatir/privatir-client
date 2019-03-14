@@ -6,10 +6,11 @@
   "author": "Michael Crowther",
   "main": "./app/index.js",
   "scripts": {
-    "build:dev": "webpack --config webpack.config.dev.js --progress --color"
+    "build": "webpack --config webpack.config.dev.js --progress --color --watch"
   },
   "dependencies": {
     "@babel/polyfill": "^7.2.5",
+    "connected-react-router": "^6.3.2",
     "es6-promise": "^4.2.6",
     "history": "^4.7.2",
     "isomorphic-fetch": "^2.2.1",
@@ -18,10 +19,8 @@
     "react-dom": "^16.8.4",
     "react-redux": "^6.0.1",
     "react-router-dom": "^4.3.1",
-    "react-router-redux": "^4.0.8",
     "redux": "^4.0.1",
     "redux-logger": "^3.0.6",
-    "redux-router": "^2.1.2",
     "redux-thunk": "^2.3.0"
   },
   "devDependencies": {

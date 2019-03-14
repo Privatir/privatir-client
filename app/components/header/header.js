@@ -5,12 +5,6 @@ import { logoutUser } from '../../actions/sessions';
 import { Link } from 'react-router-dom';
 
 class Header extends Component {
-  static propTypes = {
-    params: PropTypes.object,
-    session: PropTypes.object,
-    dispatch: PropTypes.func
-  };
-
   constructor(props, context) {
     super(props, context);
   }
@@ -52,9 +46,7 @@ class Header extends Component {
               <span className="icon-bar"></span>
             </button>
             <Link to="/" className="navbar-brand" id="logo">
-              <span>
-                <img src="/images/cyphre_logo.png"/><span>YPHRE</span>
-              </span>
+              <span><h1>Privatir</h1></span>
             </Link>
           </div>
           <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">

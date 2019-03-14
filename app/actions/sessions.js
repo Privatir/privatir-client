@@ -4,17 +4,19 @@ import Constants from '../constants';
 import { parseJson, handleError, buildHeaders } from '../utils';
 
 export function closeAlert() {
-  return { type: Constants.CLOSE_ALERT }
+  return {
+    type: Constants.CLOSE_ALERT
+  }
 }
-
 export function loginUserSuccess(token) {
   localStorage.setItem('token', token);
   return {
     type: Constants.LOGIN_USER_SUCCESS,
-    payload: { token: token }
+    payload: {
+      token: token
+    }
   }
 }
-
 export function loginUserFailure(error) {
   localStorage.removeItem('token');
   return {
@@ -25,55 +27,56 @@ export function loginUserFailure(error) {
     }
   }
 }
-
 export function loginUserRequest() {
-  return { type: Constants.LOGIN_USER_REQUEST }
+  return {
+    type: Constants.LOGIN_USER_REQUEST
+  }
 }
-
 export function logout() {
   localStorage.removeItem('token');
-  return { type: Constants.LOGOUT_USER }
+  return {
+    type: Constants.LOGOUT_USER
+  }
 }
-
 export function logoutAndRedirect() {
   return dispatch => {
     dispatch(logout());
     dispatch(route.push('/login'));
   }
 }
-
 export function logoutUser() {
   return async dispatch => {
     try {
       let response = await fetch('/api/sessions', buildHeaders('delete', true));
-      response = await handleError(response);
-      response = await parseJson(response);
+      response = await parseJson(handleError(response));
       dispatch(logoutAndRedirect());
     } catch (error) {
       console.log(error);
     }
   }
 }
-
 export function loginUser(data) {
   return async dispatch => {
     dispatch(loginUserRequest());
     try {
       let response = await fetch('/api/sessions', buildHeaders('post', true, data));
-      response = await handleError(response);
-      response = await parseJson(response);
+      response = await parseJson(handleError(response));
       try {
         dispatch(loginUserSuccess(response.data.token));
       } catch (error) {
-        dispatch(loginUserFailure({ 
-          response: { status: 401, statusText: 'Invalid Token' } 
-        }));
+        dispatch(
+          loginUserFailure({
+            response: { status: 401, statusText: 'Invalid Token' }
+          })
+        );
       }
     } catch (error) {
       error.json().then(res => {
-        dispatch(loginUserFailure({
-          response: { status: error.status, statusText: res.data.error } 
-        }));
+        dispatch(
+          loginUserFailure({
+            response: { status: error.status, statusText: res.data.error }
+          })
+        );
       });
     }
   }

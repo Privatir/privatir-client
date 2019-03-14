@@ -1,37 +1,40 @@
 import './login.scss';
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { setTitle } from '../../utils';
 import { loginUser, closeAlert } from '../../actions/sessions';
 
 class Login extends Component {
-  static propTypes = {
-    isAuthenticating: PropTypes.bool,
-    statusText: PropTypes.string,
-    actions: PropTypes.shape({
-      loginUser: PropTypes.func,
-      closeAlert: PropTypes.func
-    })
-  };
-
   constructor(props, context) {
     super(props, context);
     this.showAlert = this.showAlert.bind(this);
+    this.state = {
+      email: '',
+      password: '',
+      submitted: false
+    }
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount() {
     setTitle('Login');
   }
 
+  handleChange(e) {
+    const { type, value } = e.target;
+    this.setState({ [type]: value });
+  }
+
   handleSubmit(e) {
     e.preventDefault();
-    const { username, password } = this.refs;
+    this.setState({ submitted: true });
+    const { email, password } = this.state;
     const { actions } = this.props;
-    actions.loginUser({
-      username: username.value,
-      password: password.value
-    });
+    if (email && password) {
+      actions.loginUser({ email: email, password: password });
+    }
   }
 
   showAlert(message) {
@@ -46,6 +49,7 @@ class Login extends Component {
   render() {
     const { statusText, isAuthenticating } = this.props;
     let alert = (statusText ? this.showAlert(statusText) : '');
+    const { email, password, submitted } = this.state;
     return (
       <section className="container">
         <div className="row">
@@ -56,17 +60,17 @@ class Login extends Component {
         <div className="row">
           <div className="col-md-4 col-md-offset-4">
             {alert}
-            <form className="signin">
+            <form className="signin" onSubmit={this.handleSubmit}>
               <div className="form-group">
                 <label>Email address</label>
-                <input ref="username" type="email" className="form-control" placeholder="Email" required="true"/>
+                <input value={email} onChange={this.handleChange} type="email" className="form-control" placeholder="Email" required/>
               </div>
               <div className="form-group">
                 <label>Password</label>
-                <input ref="password" type="password" className="form-control" placeholder="Password" required="true"/>
+                <input value={password} onChange={this.handleChange} type="password" className="form-control" placeholder="Password" required/>
               </div>
               <div className="form-group">
-                <button onClick={this.handleSubmit} disabled={isAuthenticating} className="btn btn-primary">Sign in</button>
+                <button disabled={isAuthenticating} className="btn btn-primary">Sign in</button>
               </div>
             </form>
           </div>
@@ -83,7 +87,9 @@ export default connect(
       statusText: state.session.statusText
     });
   },
-  (dispatch) => ({
-    actions: bindActionCreators({ loginUser, closeAlert }, dispatch)
-  })
+  (dispatch) => {
+    return ({
+      actions: bindActionCreators({ loginUser, closeAlert }, dispatch)
+    });
+  }
 )(Login);
