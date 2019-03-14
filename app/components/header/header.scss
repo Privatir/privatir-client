@@ -1,0 +1,27 @@
+.navbar-default {
+  background-color: #36474f;
+  border-radius: 0px;
+  #logo {
+    font-size: 1.3em;
+    text-decoration: none;
+    color: white;
+    padding: 10px 0 0 15px;
+    span {
+      display: inline-block;
+      span {
+        vertical-align: middle;
+        margin-left: 1px;
+      }
+    }
+  }
+  .navbar-nav {
+    li {
+      a.dropdown-toggle {
+        color: white;
+      }
+      .color-white {
+        color: white;
+      }
+    }
+  }
+}

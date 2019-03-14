@@ -1,0 +1,47 @@
+{
+  "name": "privatir-client",
+  "version": "0.0.1",
+  "description": "Privatir frontend",
+  "repository": "https://github.com/Privatir/privatir-client",
+  "author": "Michael Crowther",
+  "main": "./app/index.js",
+  "scripts": {
+    "build:dev": "webpack --config webpack.config.dev.js --progress --color"
+  },
+  "dependencies": {
+    "@babel/polyfill": "^7.2.5",
+    "es6-promise": "^4.2.6",
+    "history": "^4.7.2",
+    "isomorphic-fetch": "^2.2.1",
+    "jwt-decode": "^2.2.0",
+    "react": "^16.8.4",
+    "react-dom": "^16.8.4",
+    "react-redux": "^6.0.1",
+    "react-router-dom": "^4.3.1",
+    "react-router-redux": "^4.0.8",
+    "redux": "^4.0.1",
+    "redux-logger": "^3.0.6",
+    "redux-router": "^2.1.2",
+    "redux-thunk": "^2.3.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.3.4",
+    "@babel/plugin-proposal-class-properties": "^7.3.4",
+    "@babel/preset-env": "^7.3.4",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.5",
+    "css-loader": "^2.1.1",
+    "html-webpack-plugin": "^3.2.0",
+    "mini-css-extract-plugin": "^0.5.0",
+    "node-sass": "^4.11.0",
+    "path": "^0.12.7",
+    "redux-devtools": "^3.5.0",
+    "redux-devtools-dock-monitor": "^1.1.3",
+    "redux-devtools-log-monitor": "^1.4.0",
+    "sass-loader": "^7.1.0",
+    "style-loader": "^0.23.1",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.0.8",
+    "webpack-dev-server": "^3.1.3"
+  }
+}
