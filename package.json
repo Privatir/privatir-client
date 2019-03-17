@@ -7,11 +7,12 @@
   "main": "./app/index.js",
   "scripts": {
     "build": "webpack --config webpack.config.dev.js --progress --color",
-    "start:dev": "npm run build && webpack-dev-server --color --config webpack.config.dev.js --progress --open"
+    "start:dev": "webpack-dev-server --color --config webpack.config.dev.js --progress --open --mode development"
   },
   "dependencies": {
     "@babel/polyfill": "^7.2.5",
     "@material-ui/core": "^3.9.2",
+    "@material/react-layout-grid": "^0.8.0",
     "connected-react-router": "^6.3.2",
     "es6-promise": "^4.2.6",
     "history": "^4.7.2",
@@ -24,7 +25,9 @@
     "react-router-dom": "^4.3.1",
     "redux": "^4.0.1",
     "redux-logger": "^3.0.6",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "typography": "^0.16.19",
+    "typography-theme-parnassus": "^0.16.19"
   },
   "devDependencies": {
     "@babel/core": "^7.3.4",

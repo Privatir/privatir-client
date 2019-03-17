@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { setTitle } from '../../utils';
 import { loginUser, closeAlert } from '../../actions/sessions';
+import { Cell, Grid, Row } from '@material/react-layout-grid';
 
 class Login extends Component {
   constructor(props, context) {
@@ -51,31 +52,25 @@ class Login extends Component {
     let alert = (statusText ? this.showAlert(statusText) : '');
     const { username, password, submitted } = this.state;
     return (
-      <section className="container">
-        <div className="row">
-          <div className="col-md-12">
-            <h2 className="text-center">Login</h2>
-          </div>
-        </div>
-        <div className="row">
-          <div className="col-md-4 col-md-offset-4">
-            {alert}
+      <Row>
+        <Cell columns={6}>
+          <div style={{ display: `flex`, marginTop: `5rem` }}>
             <form className="signin" onSubmit={this.handleSubmit}>
               <div className="form-group">
                 <label>Email address</label>
-                <input name="username" value={username} onChange={this.handleChange} placeholder="Email" required={true}/>
+                <input name="username" value={username} onChange={this.handleChange} placeholder="Email" required={true} />
               </div>
               <div className="form-group">
                 <label>Password</label>
-                <input name="password" value={password} onChange={this.handleChange} placeholder="Password" required={true}/>
+                <input name="password" value={password} onChange={this.handleChange} placeholder="Password" required={true} />
               </div>
               <div className="form-group">
                 <button disabled={isAuthenticating} className="btn btn-primary">Sign in</button>
               </div>
             </form>
           </div>
-        </div>
-      </section>
+        </Cell>
+      </Row>
     );
   }
 }

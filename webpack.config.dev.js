@@ -3,8 +3,9 @@ require("@babel/polyfill");
 const path = require('path');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const publicPath = path.join(path.resolve('../privatir-api'), 'public');
+const publicPath = path.join(path.resolve('../privatir-api'), 'public/');
 const appPath = path.resolve(__dirname, 'app');
+
 
 module.exports = {
   mode: "development",
@@ -12,8 +13,8 @@ module.exports = {
     app: ["@babel/polyfill", "./app/index.js"]
   },
   output: {
-    path: publicPath,
-    filename: "js/app.js"
+    path: __dirname + '/dist',
+    filename: "app.js"
   },
   module: {
     rules: [
@@ -22,19 +23,20 @@ module.exports = {
     ]
   },
   devServer: {
-    publicPath: path.join(publicPath),
-    contentBase: path.join(publicPath),
-    compress: true
+    publicPath: './',
+    watchContentBase: true,
+    contentBase: path.join(__dirname, 'dist/')
   },
   plugins: [
     new MiniCssExtractPlugin({ filename: "app.css" }),
     new HtmlWebpackPlugin({
       inject: false,
       template: require('html-webpack-template'),
-      filename: `html/index.html`,
       // Optional for aforementioned
       appMountId: 'root',
+      devServer: 'http://localhost:8080',
+      baseHref: 'http://localhost:8080',
+      links: ['https://fonts.googleapis.com/css?family=Merriweather|Merriweather+Sans']
     })
-
   ]
 }
