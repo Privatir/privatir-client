@@ -5,6 +5,14 @@ import { connect } from 'react-redux';
 import { setTitle } from '../../utils';
 import { loginUser, closeAlert } from '../../actions/sessions';
 import { Cell, Grid, Row } from '@material/react-layout-grid';
+import Card, {
+  CardPrimaryContent,
+  CardMedia,
+  CardActions,
+  CardActionButtons,
+  CardActionIcons
+}
+  from "@material/react-card";
 
 class Login extends Component {
   constructor(props, context) {
@@ -55,6 +63,21 @@ class Login extends Component {
       <Row>
         <Cell columns={6}>
           <div style={{ display: `flex`, marginTop: `5rem` }}>
+            <Card>
+              <CardPrimaryContent>
+                <h1>Login</h1>
+                <CardMedia square imageUrl='./my/fancy/image.png' />
+              </CardPrimaryContent>
+              <CardActions>
+                <CardActionButtons>
+                  <button>Click Me</button>
+                </CardActionButtons>
+
+                <CardActionIcons>
+                  <i>Click Me Too!</i>
+                </CardActionIcons>
+              </CardActions>
+            </Card>
             <form className="signin" onSubmit={this.handleSubmit}>
               <div className="form-group">
                 <label>Email address</label>

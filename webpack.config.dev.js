@@ -1,5 +1,5 @@
 require("@babel/polyfill");
-
+const express = require("express");
 const path = require('path');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require('html-webpack-plugin')
@@ -19,13 +19,24 @@ module.exports = {
   module: {
     rules: [
       { test: /\.m?js$/, use: { loader: 'babel-loader' }, exclude: /(node_modules|bower_components)/, include: appPath },
-      { test: /\.(sa|sc|c)ss$/, use: ['style-loader', 'css-loader', 'sass-loader'], include: appPath }
+      {
+        test: /\.(sa|sc|c)ss$/,
+        use: [
+          'style-loader',
+          'css-loader',
+          {
+            loader: 'sass-loader',
+            options: {
+              includePaths: ['./node_modules']
+            }
+          }
+        ], include: [appPath]
+      }
     ]
   },
   devServer: {
-    publicPath: './',
     watchContentBase: true,
-    contentBase: path.join(__dirname, 'dist/')
+    contentBase: path.join(__dirname, 'dist/'),
   },
   plugins: [
     new MiniCssExtractPlugin({ filename: "app.css" }),
