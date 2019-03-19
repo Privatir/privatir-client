@@ -7,6 +7,10 @@ import routes from '../routes';
 import Login from '../components/login/login';
 import typography from '../utils/typography'
 import { Grid } from '@material/react-layout-grid';
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { fab } from '@fortawesome/free-brands-svg-icons'
+
+library.add(fab)
 
 class App extends Component {
   render() {

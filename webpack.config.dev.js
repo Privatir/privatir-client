@@ -1,6 +1,6 @@
 require("@babel/polyfill");
-const express = require("express");
 const path = require('path');
+const cors = require('cors');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const publicPath = path.join(path.resolve('../privatir-api'), 'public/');
@@ -47,12 +47,12 @@ module.exports = {
     watchContentBase: true,
     contentBase: path.join(__dirname, 'dist/'),
     after: function (app, server) {
+      app.use(cors())
       // GET method route
       app.get('/login', function (req, res) {
         res.redirect('/')
       })
     }
-
   },
   plugins: [
     new MiniCssExtractPlugin({ filename: "app.css" }),
@@ -63,7 +63,8 @@ module.exports = {
       appMountId: 'root',
       devServer: 'http://localhost:8080',
       baseHref: 'http://localhost:8080',
-      links: ['https://fonts.googleapis.com/css?family=Merriweather|Merriweather+Sans']
+      links: [{ href: 'https://fonts.googleapis.com/css?family=Merriweather|Merriweather+Sans',
+       rel: "stylesheet"}]
     })
   ]
 }
