@@ -18,7 +18,16 @@ module.exports = {
   },
   module: {
     rules: [
-      { test: /\.m?js$/, use: { loader: 'babel-loader' }, exclude: /(node_modules|bower_components)/, include: appPath },
+      {
+        test: /\.m?js$/,
+        use: {
+          loader: 'babel-loader'
+        },
+        exclude: /(node_modules|bower_components)/,
+        include: [
+          appPath
+        ]
+      },
       {
         test: /\.(sa|sc|c)ss$/,
         use: [
@@ -37,6 +46,13 @@ module.exports = {
   devServer: {
     watchContentBase: true,
     contentBase: path.join(__dirname, 'dist/'),
+    after: function (app, server) {
+      // GET method route
+      app.get('/login', function (req, res) {
+        res.redirect('/')
+      })
+    }
+
   },
   plugins: [
     new MiniCssExtractPlugin({ filename: "app.css" }),

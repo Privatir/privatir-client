@@ -16,7 +16,7 @@ class App extends Component {
         {routes}
         <Grid>
           {this.props.children}
-          <Footer style={{ width: `50%` }} />
+          <Footer style={{ width: `500px` }} />
         </Grid>
       </div>
     );

@@ -5,6 +5,9 @@ import { connect } from 'react-redux';
 import { setTitle } from '../../utils';
 import { loginUser, closeAlert } from '../../actions/sessions';
 import { Cell, Grid, Row } from '@material/react-layout-grid';
+import TextField, { HelperText, Input } from '@material/react-text-field';
+import Checkbox from '@material/react-checkbox';
+import { Button } from '@material/react-button';
 import Card, {
   CardPrimaryContent,
   CardMedia,
@@ -39,10 +42,10 @@ class Login extends Component {
   handleSubmit(e) {
     e.preventDefault();
     this.setState({ submitted: true });
-    const { username, password } = this.state;
+    const { email, password } = this.state;
     const { actions } = this.props;
-    if (username && password) {
-      actions.loginUser({ email: username, password: password });
+    if (email && password) {
+      actions.loginUser({ email: email, password: password });
     }
   }
 
@@ -58,26 +61,66 @@ class Login extends Component {
   render() {
     const { statusText, isAuthenticating } = this.props;
     let alert = (statusText ? this.showAlert(statusText) : '');
-    const { username, password, submitted } = this.state;
+    const { email, password, submitted } = this.state;
     return (
       <Row>
         <Cell columns={6}>
           <div style={{ display: `flex`, marginTop: `5rem` }}>
-            <Card>
-              <CardPrimaryContent>
-                <h1>Login</h1>
-                <CardMedia square imageUrl='./my/fancy/image.png' />
-              </CardPrimaryContent>
-              <CardActions>
-                <CardActionButtons>
-                  <button>Click Me</button>
-                </CardActionButtons>
-
-                <CardActionIcons>
-                  <i>Click Me Too!</i>
-                </CardActionIcons>
-              </CardActions>
+            <Card style={{ width: `500px`, margin: `auto` }}>
+              <div style={{ display: `flex`, justifyContent: `center`, alignItems: `center`, margin: `1rem auto` }}>
+                <svg width="50" height="50"
+                  xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
+                  <a href="/">
+                    <image xlinkHref="https://s3.amazonaws.com/privatir.com/privatir-shortform.svg" height="50" width="50" />
+                  </a>
+                </svg>
+              </div>
+              <div>
+                <h1 style={{ alignSelf: `left`, margin: `0 1rem` }}>Sign In</h1>
+              </div>
+              <form style={{ display: `flex`, flexDirection: `column`, margin: `1rem 1rem` }}
+                className="signin" onSubmit={this.handleSubmit}>
+                <div style={{ display: `flex`, flexDirection: `column` }}>
+                  <TextField
+                    label='Email'
+                    helperText={<HelperText>Please enter your email.</HelperText>}
+                  ><Input
+                      name="email"
+                      value={this.state.email}
+                      onChange={this.handleChange} />
+                  </TextField>
+                  <TextField
+                    label='Password'
+                    helperText={<HelperText>Password.</HelperText>}
+                  ><Input
+                      name="password"
+                      value={this.state.password}
+                      onChange={this.handleChange} />
+                  </TextField>
+                  <div className="mdc-form-field" style={{ display: `flex`, alignItems: `center` }}>
+                    <Checkbox
+                      nativeControlId='sign-in-checkbox'
+                      checked={false}
+                    />
+                    <label htmlFor='sign-in-checkbox'>Keep me signed in on this computer</label>
+                  </div>
+                  <div style={{ display: `flex`, flexDirection: `column`, justifyContent: `space-evenly`, height: `300px` }}>
+                    <Button raised={true}>
+                      Sign in to Privatir
+                  </Button>
+                    <hr style={{ borderWidth: `5px`, margin: `15px 0` }} />
+                    <span style={{ textAlign: `center`, textTransform: `uppercase` }}>or</span>
+                    <Button outlined={true}>
+                      Sign in with Google
+                  </Button>
+                    <Button outlined={true}>
+                      Sign in with Facebook
+                  </Button>
+                  </div>
+                </div>
+              </form>
             </Card>
+            { /*
             <form className="signin" onSubmit={this.handleSubmit}>
               <div className="form-group">
                 <label>Email address</label>
@@ -91,9 +134,11 @@ class Login extends Component {
                 <button disabled={isAuthenticating} className="btn btn-primary">Sign in</button>
               </div>
             </form>
+          */}
+
           </div>
         </Cell>
-      </Row>
+      </Row >
     );
   }
 }
