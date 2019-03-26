@@ -1,10 +1,12 @@
-const constants = {
+const Constants = {
   // session
+  CLOSE_ALERT: 'CLOSE_ALERT',
   LOGIN_USER_REQUEST: 'LOGIN_USER_REQUEST',
   LOGIN_USER_FAILURE: 'LOGIN_USER_FAILURE',
   LOGIN_USER_SUCCESS: 'LOGIN_USER_SUCCESS',
   LOGOUT_USER: 'LOGOUT_USER',
-  CLOSE_ALERT: 'CLOSE_ALERT'
+  // workspace creation
+  VERIFY_EMAIL: 'VERIFY_EMAIL'
 }
 
-export default constants;
+export default Constants;

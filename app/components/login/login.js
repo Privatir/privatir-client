@@ -4,20 +4,16 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { setTitle } from '../../utils';
 import { loginUser, closeAlert } from '../../actions/sessions';
-import { Cell, Grid, Row } from '@material/react-layout-grid';
+// Material UI
+import { Cell, Row } from '@material/react-layout-grid';
+import Card from "@material/react-card";
 import TextField, { HelperText, Input } from '@material/react-text-field';
 import Checkbox from '@material/react-checkbox';
 import { Button } from '@material/react-button';
+// Fonts
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-
-import Card, {
-  CardPrimaryContent,
-  CardMedia,
-  CardActions,
-  CardActionButtons,
-  CardActionIcons
-}
-  from "@material/react-card";
+// React Router
+import { Link } from 'react-router-dom'
 
 
 const Logo = () => {
@@ -25,9 +21,9 @@ const Logo = () => {
     <div style={{ display: `flex`, justifyContent: `center`, alignItems: `center`, margin: `1rem auto` }}>
       <svg width="50" height="50"
         xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
-        <a href="/">
+        <Link to="/">
           <image xlinkHref="https://s3.amazonaws.com/privatir.com/privatir-shortform.svg" height="50" width="50" />
-        </a>
+        </Link>
       </svg>
     </div>
   )
@@ -76,6 +72,7 @@ class Login extends Component {
   handleChange(e) {
     const { name, value } = e.target;
     this.setState({ [name]: value });
+    this.setStte
   }
 
   handleSubmit(e) {
@@ -143,6 +140,10 @@ class Login extends Component {
                     required={true}
                   />
                 </TextField>
+                <div style={{ display: `flex`, justifyContent: `flex-end` }}>
+                  <Link style={{ marginRight: `.5rem` }} to="/reset-password">Forget your password?</Link>
+                  <Link to="/email-username">Forget your username?</Link>
+                </div>
                 <div className="mdc-form-field" style={{ display: `flex`, alignItems: `center` }}>
                   <Checkbox
                     nativeControlId='sign-in-checkbox'
@@ -167,6 +168,9 @@ class Login extends Component {
                   <Button outlined={true} icon={<FontAwesomeIcon icon={['fab', 'google']} />}>
                     Sign in with Google
                     </Button>
+                  <div style={{ display: `flex`, justifyContent: `center` }}>
+                    <Link style={{ color: `#4D2C91`, fontWeight: `bold` }} to="/login-workspace">Haven't registered yet? Do so now!</Link>
+                  </div>
                 </div>
               </div>
             </form>

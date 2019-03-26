@@ -52,6 +52,15 @@ module.exports = {
       app.get('/login', function (req, res) {
         res.redirect('/')
       })
+      app.get('/signup', function (req, res) {
+        res.redirect('/')
+      })
+      app.get('/login-workspace', function (req, res) {
+        res.redirect('/')
+      })
+      app.get('/create-workspace', function (req, res) {
+        res.redirect('/')
+      })
     }
   },
   plugins: [
@@ -63,8 +72,10 @@ module.exports = {
       appMountId: 'root',
       devServer: 'http://localhost:8080',
       baseHref: 'http://localhost:8080',
-      links: [{ href: 'https://fonts.googleapis.com/css?family=Merriweather|Merriweather+Sans',
-       rel: "stylesheet"}]
+      links: [{
+        href: 'https://fonts.googleapis.com/css?family=Merriweather|Merriweather+Sans',
+        rel: "stylesheet"
+      }]
     })
   ]
 }

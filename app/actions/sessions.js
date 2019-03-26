@@ -1,17 +1,40 @@
 import fetch from 'isomorphic-fetch';
 import { history } from '../store';
-import constants from '../constants';
+import Constants from '../constants';
 import { handleError, parseJson, buildHeaders } from '../utils';
+
+/**
+ *  This module contains the actions related to user authentication
+ *  sign-up/sign-in flows 
+ */
+
+
+/**
+ * Bound Actions
+ */
+export function verifyEmail(email) {
+  return {
+    type: Constants.VERIFY_EMAIL,
+    payload: {
+      email: email,
+      statusText: 'Email Verification Successful!'
+    }
+  }
+}
 
 export function closeAlert() {
   return {
-    type: constants.CLOSE_ALERT
+    type: Constants.CLOSE_ALERT
   }
 }
+
+/**
+ * Bound Actions
+ */
 export function loginUserSuccess(token) {
   localStorage.setItem('csrf', token);
   return {
-    type: constants.LOGIN_USER_SUCCESS,
+    type: Constants.LOGIN_USER_SUCCESS,
     payload: {
       csrf: token
     }
@@ -20,7 +43,7 @@ export function loginUserSuccess(token) {
 export function loginUserFailure(error) {
   localStorage.removeItem('csrf');
   return {
-    type: constants.LOGIN_USER_FAILURE,
+    type: Constants.LOGIN_USER_FAILURE,
     payload: {
       status: error.response.status,
       statusText: error.response.statusText
@@ -29,13 +52,13 @@ export function loginUserFailure(error) {
 }
 export function loginUserRequest() {
   return {
-    type: constants.LOGIN_USER_REQUEST
+    type: Constants.LOGIN_USER_REQUEST
   }
 }
 export function logout() {
   localStorage.removeItem('csrf');
   return {
-    type: constants.LOGOUT_USER
+    type: Constants.LOGOUT_USER
   }
 }
 export function logoutAndRedirect() {
@@ -72,11 +95,11 @@ export function loginUser(data) {
           history.push('/');
         } catch (e) {
           console.log(e);
-          dispatch(loginUserFailure({response: { status: 401, statusText: 'Invalid Token' }}));
+          dispatch(loginUserFailure({ response: { status: 401, statusText: 'Invalid Token' } }));
         }
       }).catch(error => {
         error.json().then(res => {
-          dispatch(loginUserFailure({response: { status: error.status, statusText: res.data.error }}));
+          dispatch(loginUserFailure({ response: { status: error.status, statusText: res.data.error } }));
         });
       });
   }
